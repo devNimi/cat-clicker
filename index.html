@@ -22,19 +22,25 @@
         </div>
 
         <div class="col-md-9 cat">
-          <p class="lead" id="cat-name"></p>
-          <p class="lead"> Clicks - <small class="text-muted" id="click-counter"></small></p>
-          <img id="cat-img" class="img-fluid" src="" alt="cute cat">
+          <h2 class="lead" id="cat-name" data-bind="text: name"></h2>
+          <div id="cat-count">
+            <p class="lead"> Clicks - <small class="text-muted" id="click-counter" data-bind="text: clickCount"></small></p>
+          </div>
+          <div class="cat-level">
+            <p class="lead"> Cat Level - <small class="text-muted" data-bind="text: catLevel"></small></p>
+          </div>
+          <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: incrementCounter,
+          attr: {src: imgSrc}">
         </div>
 
       </div>
 
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-2">
           <button id="admin-button" class="btn btn-primary"type="button" name="button">ADMIN</button>
-        </div>
+        </div> -->
 
-        <div class="col-md-10" id="admin-view">
+        <!-- <div class="col-md-10" id="admin-view">
           <form id="form-container" class="form-container">
               <div class="">
                 <label for="name" >Name: </label><input type="text" id="form-cat-name" value="">
@@ -48,7 +54,7 @@
               <button id="form-submit-button" class="btn btn-success">Submit</button>
               <button id="form-cancel-button" class="btn btn-danger">Cancel</button>
           </form>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -58,6 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 
+    <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
 
   </body>
