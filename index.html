@@ -16,21 +16,25 @@
       <div class="row">
         <div class="col-md-3">
           <h3>Cats</h3>
-          <ul id="cat-list">
-
+          <ul id="cat-list" data-bind="foreach: catList">
+            <li data-bind="text: name, click: $parent.setCat"></li>
           </ul>
         </div>
 
-        <div class="col-md-9 cat">
+        <div class="col-md-9 cat" data-bind="with: currentCat()">
           <h2 class="lead" id="cat-name" data-bind="text: name"></h2>
+          <h3 class="lead" id="cat-title" data-bind="text: title"></h3>
           <div id="cat-count">
             <p class="lead"> Clicks - <small class="text-muted" id="click-counter" data-bind="text: clickCount"></small></p>
           </div>
-          <div class="cat-level">
-            <p class="lead"> Cat Level - <small class="text-muted" data-bind="text: catLevel"></small></p>
-          </div>
-          <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: incrementCounter,
+          <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
           attr: {src: imgSrc}">
+
+          <ul data-bind="foreach: nicknames">
+            <li>
+              <b data-bind="text: $data"></b>
+            </li>
+          </ul>
         </div>
 
       </div>
