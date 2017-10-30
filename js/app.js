@@ -43,7 +43,7 @@ $(function() {
     this.clickCount = ko.observable(data.clickCount);
     this.name = ko.observable(data.name);
     this.imgSrc = ko.observable(data.imgSrc);
-    this.nicknames = ko.observableArray(data.nicknames)
+    this.nicknames = ko.observableArray(data.nicknames);
     //computed observables
     this.title = ko.computed(function() {
       var title;
@@ -70,7 +70,6 @@ $(function() {
     initialCats.forEach(function(catItem){
       self.catList.push( new Cat(catItem) );
     })
-    console.log(this.catList()[0].name());
 
     this.currentCat = ko.observable( this.catList()[0] );
 
@@ -87,13 +86,14 @@ $(function() {
       self.currentCat(this);
     }
     // method 2
-    //read documentation to nkow more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
+    //read documentation to know more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
     // this.setCat = function(currentCat) {
     //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
     //   self.currentCat(this);
-    }
 
-  }
+
+
+    }
 
   ko.applyBindings(new ViewModel());
 

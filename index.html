@@ -12,7 +12,6 @@
       <h2 class="text-center hero-text">Cat Clicker Premium Pro!</h2>
       <p class="text-center">version 4.0</p>
       <hr>
-
       <div class="row">
         <div class="col-md-3">
           <h3>Cats</h3>
@@ -20,47 +19,69 @@
             <li data-bind="text: name, click: $parent.setCat"></li>
           </ul>
         </div>
-
         <div class="col-md-9 cat" data-bind="with: currentCat()">
-          <h2 class="lead" id="cat-name" data-bind="text: name"></h2>
-          <h3 class="lead" id="cat-title" data-bind="text: title"></h3>
+          <h2 id="cat-name" data-bind="text: name"></h2>
+          <p class="lead" id="cat-title" data-bind="text: title"></p>
           <div id="cat-count">
             <p class="lead"> Clicks - <small class="text-muted" id="click-counter" data-bind="text: clickCount"></small></p>
           </div>
+          <h4 id="cat-nicknames">nicknames</h4>
+          <ul data-bind="foreach: nicknames">
+            <li data-bind="text: $data"></li>
+          </ul>
           <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
           attr: {src: imgSrc}">
-
-          <ul data-bind="foreach: nicknames">
-            <li>
-              <b data-bind="text: $data"></b>
-            </li>
-          </ul>
         </div>
-
       </div>
-
-      <!-- <div class="row">
-        <div class="col-md-2">
-          <button id="admin-button" class="btn btn-primary"type="button" name="button">ADMIN</button>
-        </div> -->
-
-        <!-- <div class="col-md-10" id="admin-view">
-          <form id="form-container" class="form-container">
-              <div class="">
-                <label for="name" >Name: </label><input type="text" id="form-cat-name" value="">
-              </div>
-              <div class="">
-                <label for="image-url">Image Url: </label><input type="text" id="form-image-url" value="">
-              </div>
-              <div class="">
-                <label for="number-of-clicks">Number of clicks: </label><input type="text" id="form-clicks-counter" value="">
-              </div>
-              <button id="form-submit-button" class="btn btn-success">Submit</button>
-              <button id="form-cancel-button" class="btn btn-danger">Cancel</button>
-          </form>
-        </div> -->
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adminModal">
+            Admin
+          </button>
+        </div>
       </div>
     </div>
+
+
+    <!-- bootstrap modal -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Admin Panel</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-10" id="admin-form">
+                <form id="form-container" class="form-container" data-bind="with: currentCat()">
+                    <div class="">
+                      <label for="name" >Name: </label><input type="text" id="form-cat-name" data-bind="value: name">
+                    </div>
+                    <div class="">
+                      <label for="image-url">Image Url: </label><input type="text" id="form-image-url" data-bind="value: imgSrc">
+                    </div>
+                    <div class="">
+                      <label for="number-of-clicks">Number of clicks: </label><input type="text" id="form-clicks-counter" data-bind="value: clickCount">
+                    </div>
+                    <div class="" data-bind="foreach: nicknames">
+                      <input type="text" id="" data-bind="value: $data">
+                    </div>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /container -->
 
 
 
