@@ -2,6 +2,22 @@
   padding-top: 0.5em;
 }
 
-#admin-view {
-  display: none;
+#cat-list {
+  list-style-type: none;
+}
+
+#cat-list {
+  /*cursor: pointer;*/
+}
+#admin-form {
+
+}
+
+.admin-button {
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+
+.add-user-cat-form-modal-buttons {
+  text-align: right;
 }
