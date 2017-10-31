@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cat Clicker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
@@ -27,7 +28,7 @@
           </div>
           <h4 id="cat-nicknames">nicknames</h4>
           <ul data-bind="foreach: nicknames">
-            <li data-bind="text: $data"></li>
+            <li data-bind="text: nickname"></li>
           </ul>
           <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
           attr: {src: imgSrc}">
@@ -36,9 +37,10 @@
       <div class="row">
         <div class="col-md-12">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adminModal">
-            Admin
+          <button type="button" class="btn btn-danger admin-button" data-toggle="modal" data-target="#adminModal">
+            <i class="fa fa-user fa-sm">Admin</i>
           </button>
+
         </div>
       </div>
     </div>
@@ -68,8 +70,9 @@
                     <div class="">
                       <label for="number-of-clicks">Number of clicks: </label><input type="text" id="form-clicks-counter" data-bind="value: clickCount">
                     </div>
+                    <p class="lead">Nicknames</p>
                     <div class="" data-bind="foreach: nicknames">
-                      <input type="text" id="" data-bind="value: $data">
+                      <input type="text" id="" data-bind="value: nickname">
                     </div>
                 </form>
               </div>

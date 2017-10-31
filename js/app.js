@@ -7,7 +7,9 @@ $(function() {
                   'name': 'Kara',
                   'imgSrc': 'images/cat-1.jpg',
                   'clickCount': 0,
-                  'nicknames': ['SuperGirl', 'Zor-al', 'K', 'apple', 'mac']
+                  'nicknames': [
+                    'SuperGirl', 'Zor-al', 'K', 'apple', 'mac'
+                  ]
               },
               {
                   'id': 'cat-2',
@@ -40,12 +42,21 @@ $(function() {
           ];
 
   var Cat = function(data) {
-    this.clickCount = ko.observable(data.clickCount);
-    this.name = ko.observable(data.name);
-    this.imgSrc = ko.observable(data.imgSrc);
-    this.nicknames = ko.observableArray(data.nicknames);
+    var self = this;
+    self.clickCount = ko.observable(data.clickCount);
+    self.name = ko.observable(data.name);
+    self.imgSrc = ko.observable(data.imgSrc);
+    self.nicknames = ko.observableArray()
+
+    // makes nicknames in the original array observables
+    // then add it to observable array of 'Cat'
+    data.nicknames.forEach(function(nickname){
+      // self.nicknames.push({'name': nickname});
+      self.nicknames.push({'nickname' : ko.observable(nickname)});
+    })
+
     //computed observables
-    this.title = ko.computed(function() {
+    self.title = ko.computed(function() {
       var title;
       var clicks = this.clickCount();
         if (clicks < 10) {
@@ -73,8 +84,6 @@ $(function() {
 
     this.currentCat = ko.observable( this.catList()[0] );
 
-
-
     this.incrementCounter = function() {
       self.currentCat().clickCount(self.currentCat().clickCount() + 1);
       // method -2 here we are already in the context of currentCat because of 'with' binding in the html
@@ -86,13 +95,10 @@ $(function() {
       self.currentCat(this);
     }
     // method 2
-    //read documentation to know more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
+    //read documentation to nkow more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
     // this.setCat = function(currentCat) {
     //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
     //   self.currentCat(this);
-
-
-
     }
 
   ko.applyBindings(new ViewModel());
