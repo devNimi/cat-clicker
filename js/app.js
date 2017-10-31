@@ -3,37 +3,32 @@ $(function() {
 
   var initialCats =  [
               {
-                  'id': 'cat-1',
                   'name': 'Kara',
                   'imgSrc': 'images/cat-1.jpg',
                   'clickCount': 0,
                   'nicknames': [
-                    'SuperGirl', 'Zor-al', 'K', 'apple', 'mac'
+                    'SuperGirl', 'Zor-al', 'amoureux', 'macintosh', 'kay'
                   ]
               },
               {
-                  'id': 'cat-2',
                   'name': 'Anshu ',
                   'imgSrc': 'images/cat-2.jpg',
                   'clickCount': 0,
                   'nicknames': ['gopal']
               },
               {
-                  'id': 'cat-3',
                   'name': 'Aria',
                   'imgSrc': 'images/cat-3.jpg',
                   'clickCount': 0,
                   'nicknames': ['jbl', 'melody']
               },
               {
-                  'id': 'cat-4',
                   'name': 'Stevey',
                   'imgSrc': 'images/cat-4.jpg',
                   'clickCount': 0,
                   'nicknames': ['zooomm', 'jzzzz']
               },
               {
-                  'id': 'cat-5',
                   'name': 'Rosita',
                   'imgSrc': 'images/cat-5.jpg',
                   'clickCount': 0,
@@ -42,6 +37,7 @@ $(function() {
           ];
 
   var Cat = function(data) {
+    console.log(data);
     var self = this;
     self.clickCount = ko.observable(data.clickCount);
     self.name = ko.observable(data.name);
@@ -99,8 +95,43 @@ $(function() {
     // this.setCat = function(currentCat) {
     //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
     //   self.currentCat(this);
+
+    //retrive 'add a new cat' form data and creates a new 'Cat'
+    this.addUserCat = function(){
+      console.log('called');
+      // newUserCat object should be similar to initialCats array objects
+      var newUserCat = {};
+      newUserCat.name =  $('#add-user-cat-form').find('input[name="name"]').val();
+      newUserCat.imgSrc =  $('#add-user-cat-form').find('input[name="imgSrc"]').val();
+      newUserCat.clickCount =  $('#add-user-cat-form').find('input[name="clickCount"]').val();
+      newUserCat.nicknames =  [];
+      // grab the nicknames from form feild
+      var addCatFormNickNames = $('#user-cat-nicknames').children('input');
+      // iterates over jQuery object which .children() returns and push it to newUserCat
+      // .value is a proertly that jQuery object returns
+      // log 'addCatFormNickNames' to console for details
+      addCatFormNickNames.each(function(index, element){
+        newUserCat.nicknames.push(element.value);
+      })
+      // pass newUserCat to catList observable array
+      self.catList.push( new Cat(newUserCat) );
+
+      //close the modal
+      $('#addNewUserCatModal').modal('hide');
+
     }
 
+    this.addNicknameField = function(){
+      $('<input type="text" id="" name="" data-bind="">').insertBefore("#remove-nickname-btn")
+    }
+
+    this.removeNicknameField = function(){
+      $('#user-cat-nicknames').find('input').last().remove();
+    }
+  }
+
   ko.applyBindings(new ViewModel());
+  // initialize popovers
+  $('[data-toggle="popover"]').popover()
 
 });

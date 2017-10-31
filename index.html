@@ -9,18 +9,46 @@
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-    <div class="container-fluid">
-      <h2 class="text-center hero-text">Cat Clicker Premium Pro!</h2>
-      <p class="text-center">version 4.0</p>
-      <hr>
-      <div class="row">
-        <div class="col-md-3">
-          <h3>Cats</h3>
-          <ul id="cat-list" data-bind="foreach: catList">
-            <li data-bind="text: name, click: $parent.setCat"></li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Cat Clicker Premium Pro!</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cat List
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <ul id="cat-list" data-bind="foreach: catList">
+                  <li data-bind="text: name, click: $parent.setCat"></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-toggle="modal" data-target="#addNewUserCatModal">Add Cat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/devNimi/cat-clicker" target="_blank"><i class="fa fa-code-fork" aria-hidden="true"> Fork</i></a>
+            </li>
           </ul>
+          <button type="button" class="btn btn-sm  btn-outline-secondary" data-toggle="popover" title="Feedback" data-content="please write your feedback to contact@nimeshjain.com">Feedback</button>
+          <button type="button" class="btn btn-sm btn-outline-danger admin-button" data-toggle="modal" data-target="#adminModal">
+            <i class="fa fa-user fa-sm"> Admin</i>
+          </button>
         </div>
+      </nav>
+
+    <div class="container-fluid">
+
+      <div class="row">
         <div class="col-md-9 cat" data-bind="with: currentCat()">
+          <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
+          attr: {src: imgSrc}">
+        </div>
+        <div class="col-md-3" data-bind="with: currentCat()">
           <h2 id="cat-name" data-bind="text: name"></h2>
           <p class="lead" id="cat-title" data-bind="text: title"></p>
           <div id="cat-count">
@@ -30,61 +58,95 @@
           <ul data-bind="foreach: nicknames">
             <li data-bind="text: nickname"></li>
           </ul>
-          <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
-          attr: {src: imgSrc}">
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <!-- Button trigger modal -->
-          <button type="button" class="btn btn-danger admin-button" data-toggle="modal" data-target="#adminModal">
-            <i class="fa fa-user fa-sm">Admin</i>
-          </button>
 
-        </div>
-      </div>
+      <!-- <img src="images/cat-1.jpg" alt=""> -->
     </div>
 
+    <footer class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
+        <div class="navbar-nav">
+          <span class="text-muted">© 2017 - Cat Clicker Premium Pro!</span>
+        </div>
+    </footer>
+
+
+    </div> <!-- /container -->
 
     <!-- bootstrap modal -->
-
-      <!-- Modal -->
-      <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Admin Panel</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    <!-- admin Modal -->
+    <div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Admin Panel</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-10" id="admin-form">
+              <form id="form-container" class="form-container" data-bind="with: currentCat()">
+                  <div class="">
+                    <label for="name" >Name: </label><input type="text" id="form-cat-name" data-bind="value: name">
+                  </div>
+                  <div class="">
+                    <label for="image-url">Image Url: </label><input type="text" id="form-image-url" data-bind="value: imgSrc">
+                  </div>
+                  <div class="">
+                    <label for="number-of-clicks">Number of clicks: </label><input type="text" id="form-clicks-counter" data-bind="value: clickCount">
+                  </div>
+                  <p class="lead">Nicknames</p>
+                  <div class="" data-bind="foreach: nicknames">
+                    <input type="text" id="" data-bind="value: nickname">
+                  </div>
+              </form>
             </div>
-            <div class="modal-body">
-              <div class="col-md-10" id="admin-form">
-                <form id="form-container" class="form-container" data-bind="with: currentCat()">
-                    <div class="">
-                      <label for="name" >Name: </label><input type="text" id="form-cat-name" data-bind="value: name">
-                    </div>
-                    <div class="">
-                      <label for="image-url">Image Url: </label><input type="text" id="form-image-url" data-bind="value: imgSrc">
-                    </div>
-                    <div class="">
-                      <label for="number-of-clicks">Number of clicks: </label><input type="text" id="form-clicks-counter" data-bind="value: clickCount">
-                    </div>
-                    <p class="lead">Nicknames</p>
-                    <div class="" data-bind="foreach: nicknames">
-                      <input type="text" id="" data-bind="value: nickname">
-                    </div>
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-
-    </div> <!-- /container -->
+    </div> <!-- /admin modal -->
+    <!-- add new cat Modal -->
+    <div class="modal fade" id="addNewUserCatModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addNewUserCatModalLabel">Add New Cat</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="add-user-cat-form" class="form-container" data-bind="submit: addUserCat">
+                <div class="">
+                  <label for="name" >Name: </label><input name="name" placeholder="enter your cat name" type="name" id="" data-bind="">
+                </div>
+                <div class="">
+                  <label for="image-url">Image Url: </label><input name="imgSrc" placeholder="enter url" type="text" id="" data-bind="" value="images/cat-1.jpg">
+                </div>
+                <div class="">
+                  <label for="number-of-clicks">Number of clicks: </label><input placeholder="initialize clicks" name="clickCount" type="number" id="" data-bind="">
+                </div>
+                <div class="" id="user-cat-nicknames" data-bind="">
+                  <label for="">Nicknames</label>
+                  <input type="text" id="" name="" data-bind="">
+                  <input type="text" id="" name="" data-bind="">
+                  <button type="button" class="btn btn-link" id="remove-nickname-btn" data-bind="click: removeNicknameField"><i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-link" id="add-nickname-btn" data-bind="click: addNicknameField"><i class="fa fa-plus"></i></button>
+                </div>
+                <div class="add-user-cat-form-modal-buttons">
+                  <hr>
+                  <button type="submit" name="button" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
