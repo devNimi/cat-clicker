@@ -37,7 +37,6 @@ $(function() {
           ];
 
   var Cat = function(data) {
-    console.log(data);
     var self = this;
     self.clickCount = ko.observable(data.clickCount);
     self.name = ko.observable(data.name);
@@ -103,7 +102,7 @@ $(function() {
       var newUserCat = {};
       newUserCat.name =  $('#add-user-cat-form').find('input[name="name"]').val();
       newUserCat.imgSrc =  $('#add-user-cat-form').find('input[name="imgSrc"]').val();
-      newUserCat.clickCount =  $('#add-user-cat-form').find('input[name="clickCount"]').val();
+      newUserCat.clickCount =  parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
       newUserCat.nicknames =  [];
       // grab the nicknames from form feild
       var addCatFormNickNames = $('#user-cat-nicknames').children('input');
@@ -115,10 +114,13 @@ $(function() {
       })
       // pass newUserCat to catList observable array
       self.catList.push( new Cat(newUserCat) );
-
+      // console.log(newUserCat);
       //close the modal
       $('#addNewUserCatModal').modal('hide');
-
+      // display 'new cat added successful' message alert to user
+        $("#user-cat-success-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#user-cat-success-alert").slideUp(500);
+        });
     }
 
     this.addNicknameField = function(){

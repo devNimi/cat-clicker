@@ -13,6 +13,10 @@
 
 }
 
+#remove-nickname-btn {
+  color: red;
+}
+
 .admin-button {
   margin-left: 0.5em;
   cursor: pointer;
@@ -20,4 +24,15 @@
 
 .add-user-cat-form-modal-buttons {
   text-align: right;
+}
+
+
+#user-cat-success-alert {
+  position: absolute;
+  z-index: 10;
+  width: 50vw;
+  height: 8vh;
+  top: 40vh;
+  left: 25vw;
+  display: none;
 }
