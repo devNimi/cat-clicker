@@ -86,7 +86,7 @@ $(function() {
     }
 
     this.setCat = function() {
-      // since we used foreach binding, context changed. 'this' here refers to the cat itself
+      // foreach binding (in HTML) changes context. 'this' here refers to the cat itself i.e.  Click listner is applied on C`at itelf
       self.currentCat(this);
     }
     // method 2
@@ -97,12 +97,21 @@ $(function() {
 
     //retrive 'add a new cat' form data and creates a new 'Cat'
     this.addUserCat = function(){
-      console.log('called');
       // newUserCat object should be similar to initialCats array objects
       var newUserCat = {};
-      newUserCat.name =  $('#add-user-cat-form').find('input[name="name"]').val();
+      var nameByUser = $('#add-user-cat-form').find('input[name="name"]').val();
+      var clickCountByUser =  parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
+      if(!nameByUser) {
+        console.log('enteres');
+        nameByUser = 'Please name you cat :)';
+      }
+      // console.log(newUserCat.clickCount);
+      if (Number.isNaN(clickCountByUser)) {
+        clickCountByUser = 0;
+      }
+      newUserCat.name =  nameByUser;
       newUserCat.imgSrc =  $('#add-user-cat-form').find('input[name="imgSrc"]').val();
-      newUserCat.clickCount =  parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
+      newUserCat.clickCount =  clickCountByUser;
       newUserCat.nicknames =  [];
       // grab the nicknames from form feild
       var addCatFormNickNames = $('#user-cat-nicknames').children('input');
@@ -115,6 +124,10 @@ $(function() {
       // pass newUserCat to catList observable array
       self.catList.push( new Cat(newUserCat) );
       // console.log(newUserCat);
+
+      // set the currentCat to the new cat added
+      self.currentCat(self.catList()[self.catList().length-1]);
+
       //close the modal
       $('#addNewUserCatModal').modal('hide');
       // display 'new cat added successful' message alert to user

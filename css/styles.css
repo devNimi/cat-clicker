@@ -1,14 +1,73 @@
+.main-container-mobile {
+  margin-top: 1em;
+  margin-bottom: 4em;
+}
+
+.main-container-desktop {
+  padding: 1em 0;
+  margin: 1em;
+  outline: dashed 1px #1b1e21;
+  display: none;
+}
+
 .hero-text {
   padding-top: 0.5em;
 }
 
-#cat-list {
-  list-style-type: none;
+.card-body-mobile {
+  padding-bottom: 0;
 }
 
-#cat-list {
-  /*cursor: pointer;*/
+.card-title-mobile {
+  /*text-decoration: underline;*/
 }
+
+.main-container-mobile li.list-group-item {
+  padding: 0.75rem 1.75rem;
+}
+
+.main-container-desktop ul.cat-list {
+  padding-left: 1em;
+}
+
+
+li.nicknames-li-desktop {
+  width: 60%;
+  border-bottom: 1px solid #18a2b9;
+  text-align: right;
+}
+
+.change-cat-btn {
+  cursor: pointer;
+}
+
+.cat-list {
+  list-style-type: none;
+  cursor: pointer;
+}
+
+.cat-list li:hover {
+    color: #18a2b9;
+}
+
+.nicknames-li-mobile:hover {
+    background-color: #f8f9fa;
+}
+
+.nicknames-li-desktop:hover {
+    background-color: #f8f9fa;
+}
+
+.change-cat-dropdown {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.cat-button-desktop {
+  display: none;
+  padding: 0 1em;
+}
+
 #admin-form {
 
 }
@@ -26,13 +85,12 @@
   text-align: right;
 }
 
-
 #user-cat-success-alert {
   position: absolute;
   z-index: 10;
   width: 50vw;
   height: 8vh;
   top: 40vh;
-  left: 25vw;
+  left: 20vw;
   display: none;
 }
