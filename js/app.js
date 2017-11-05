@@ -95,6 +95,23 @@ $(function() {
     //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
     //   self.currentCat(this);
 
+    this.removeCat = function() {
+      if(self.catList().length > 1) {
+        // grab the index of cat (which is set as currentCat) from the catList
+        var currentCatIndex = self.catList().indexOf(self.currentCat());
+        // remove the cat from catList
+        self.catList.remove(self.currentCat());
+        // set currentCat to the next available, since we remove one element from the array
+        // index of the next available element become the index of removed one i.e. currentCatIndex
+        self.currentCat(self.catList()[currentCatIndex]);
+      } else {
+        $("#cannot-delete-all-cats-alert").fadeTo(2000, 500).slideUp(500, function(){
+          $("#cannot-delete-all-cats-alert").slideUp(500);
+        });
+      }
+
+    }
+
     //retrive 'add a new cat' form data and creates a new 'Cat'
     this.addUserCat = function(){
       // newUserCat object should be similar to initialCats array objects
@@ -131,9 +148,9 @@ $(function() {
       //close the modal
       $('#addNewUserCatModal').modal('hide');
       // display 'new cat added successful' message alert to user
-        $("#user-cat-success-alert").fadeTo(2000, 500).slideUp(500, function(){
+      $("#user-cat-success-alert").fadeTo(2000, 500).slideUp(500, function(){
         $("#user-cat-success-alert").slideUp(500);
-        });
+      });
     }
 
     this.addNicknameField = function(){
