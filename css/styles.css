@@ -6,12 +6,21 @@
 .main-container-desktop {
   padding: 1em 0;
   margin: 1em;
-  outline: dashed 1px #1b1e21;
+  /*outline: 1px solid #17a2b8;*/
+  box-shadow: 3px 4px 13px 0px #17a2b873;
   display: none;
 }
 img:hover {
   cursor: pointer;
   opacity: 0.9;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+nav {
+  box-shadow: 0px 0px 12px 0px #343a4082;
 }
 .hero-text {
   padding-top: 0.5em;
@@ -49,7 +58,6 @@ li.nicknames-li-desktop {
 }
 
 .change-cat-btn {
-  cursor: pointer;
 }
 
 .cat-list {
@@ -84,12 +92,44 @@ li.nicknames-li-desktop {
   color: #18a2b9;
 }
 
+.admin-button {
+  margin-left: 0.5em;
+}
+
+
 #admin-form {
 
 }
 
-#remove-nickname-btn {
+#form-cat-name {
+  margin-left: 0.5em;
+}
+
+#form-image-url {
+  margin-left: 0.5em;
+}
+
+#form-clicks-counter {
+  margin-left: 0.5em;
+}
+
+.admin-remove-nickname-btn {
+  float: inherit;
   cursor: pointer;
+  margin-left: 0.25em;
+}
+
+.admin-add-new-nickname-btn {
+  margin-left: 2em;
+  font-size: 0.7em;
+  margin-top: 0.5em;
+}
+
+.nicknames-fields-admin {
+  display: flex;
+  margin-left: 1.5em;
+}
+#remove-nickname-btn {
   color: #dd3645;
   border: 1px solid;
   border-radius: 4em;
@@ -102,7 +142,6 @@ li.nicknames-li-desktop {
 }
 
 #add-nickname-btn {
-  cursor: pointer;
   border: 1px solid;
   color: #343a40;
   border-radius: 4em;
@@ -111,11 +150,6 @@ li.nicknames-li-desktop {
 #add-nickname-btn:hover {
   background-color: #343a40;
   color: white;
-}
-
-.admin-button {
-  margin-left: 0.5em;
-  cursor: pointer;
 }
 
 .add-user-cat-form-modal-buttons {
@@ -131,7 +165,14 @@ li.nicknames-li-desktop {
   left: 20vw;
   display: none;
 }
-
+#cats-sorted-success-alert {
+  position: absolute;
+  z-index: 10;
+  width: 50vw;
+  top: 40vh;
+  left: 20vw;
+  display: none;
+}
 #cannot-delete-all-cats-alert {
   position: absolute;
   z-index: 10;

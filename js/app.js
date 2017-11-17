@@ -14,7 +14,7 @@ $(function() {
                   'name': 'Anshu ',
                   'imgSrc': 'images/cat-2.jpg',
                   'clickCount': 0,
-                  'nicknames': ['gopal']
+                  'nicknames': ['gopal', 'super-cute', ':)']
               },
               {
                   'name': 'Aria',
@@ -119,7 +119,6 @@ $(function() {
       var nameByUser = $('#add-user-cat-form').find('input[name="name"]').val();
       var clickCountByUser =  parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
       if(!nameByUser) {
-        console.log('enteres');
         nameByUser = 'Please name you cat :)';
       }
       // console.log(newUserCat.clickCount);
@@ -153,10 +152,31 @@ $(function() {
       });
     }
 
+    // sort cats in alphabetical order
+    self.sortCats = function() {
+      self.catList.sort(function (l, r) {return l.name() > r.name() ? 1 : -1 })
+      // display 'new cat added successful' message alert to user
+      $("#cats-sorted-success-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#cats-sorted-success-alert").slideUp(500);
+      });
+    }
+
+    // admin modal - remove nickname
+    self.adminRemoveNickname = function(value){
+      self.currentCat().nicknames.remove(value);
+    }
+
+    // admin modal - add new nickname
+    self.adminAddNewNickname = function(){
+      var newNickname = '';
+      self.currentCat().nicknames.push({'nickname' : ko.observable(newNickname)});
+    }
+
+    // add cat modal
     this.addNicknameField = function(){
       $('<input type="text" id="" name="" data-bind="">').insertBefore("#remove-nickname-btn")
     }
-
+    // add cat modal
     this.removeNicknameField = function(){
       $('#user-cat-nicknames').find('input').last().remove();
     }
