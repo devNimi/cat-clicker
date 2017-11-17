@@ -43,6 +43,9 @@ nav {
   /*text-decoration: underline;*/
 }
 
+.cat-image-container {
+  text-align: center;
+}
 .user-tip {
   font-size: 2vh;
   text-align: justify;

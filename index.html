@@ -58,7 +58,7 @@
           <a class="nav-link" href="https://github.com/devNimi/cat-clicker" target="_blank"><i class="fa fa-code-fork" aria-hidden="true"> Fork</i></a>
         </li>
       </ul>
-      <button type="button" class="btn btn-sm  btn-outline-secondary" data-toggle="popover" title="Feedback" data-content="please write your feedback to contact@nimeshjain.com">Feedback</button>
+      <button type="button" class="btn btn-sm  btn-outline-secondary" data-toggle="popover" data-placement="bottom" title="Feedback" data-content="please write your feedback to contact@nimeshjain.com">Feedback</button>
       <button type="button" class="btn btn-sm btn-outline-danger admin-button" data-toggle="modal" data-target="#adminModal">
         <i class="fa fa-user fa-sm"> Admin</i>
       </button>
@@ -104,8 +104,8 @@
 
     <!-- for screens larger - 767px+ | although below section isn't a bootstrap card, it used boostrap card's classes for better flow of UI  -->
     <div class="row main-container-desktop" data-bind="with: currentCat()">
-      <div class="col-md-9">
-        <img id="cat-img" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
+      <div class="col-md-9 cat-image-container">
+        <img id="" class="img-fluid" src="" alt="cute cat" data-bind="click: $parent.incrementCounter,
           attr: {src: imgSrc}">
       </div>
       <div class="col-md-3">
@@ -262,7 +262,7 @@
     <button type="button" class="close" data-dismiss="alert">x</button>
     Cats sorted <strong>successfully</strong>
   </div>
-  
+
   <!-- 'Cannot delete all cats' message' -->
   <div class="alert alert-danger" id="cannot-delete-all-cats-alert">
     <button type="button" class="close" data-dismiss="alert">x</button>
