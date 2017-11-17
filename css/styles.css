@@ -159,11 +159,11 @@ li.nicknames-li-desktop {
   position: absolute;
   z-index: 10;
   width: 50vw;
-  height: 8vh;
   top: 40vh;
   left: 20vw;
   display: none;
 }
-#cannot-delete-all-cats-alert {
-  height: 18vh;
+
+.modal-footer {
+  flex-wrap: wrap;
 }
