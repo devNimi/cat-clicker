@@ -1,62 +1,63 @@
-// gentle reminder :) - make sure you run an observable for it'd value :D
-$(function() {
+  // gentle reminder :) - make sure you run an observable for it's value :D
+  $(function() {
 
-  var initialCats =  [
-              {
-                  'name': 'Kara',
-                  'imgSrc': 'images/cat-1.jpg',
-                  'clickCount': 0,
-                  'nicknames': [
-                    'SuperGirl', 'Zor-al', 'amoureux', 'macintosh', 'kay'
-                  ]
-              },
-              {
-                  'name': 'Anshu ',
-                  'imgSrc': 'images/cat-2.jpg',
-                  'clickCount': 0,
-                  'nicknames': ['gopal', 'super-cute', ':)']
-              },
-              {
-                  'name': 'Aria',
-                  'imgSrc': 'images/cat-3.jpg',
-                  'clickCount': 0,
-                  'nicknames': ['jbl', 'melody']
-              },
-              {
-                  'name': 'Stevey',
-                  'imgSrc': 'images/cat-4.jpg',
-                  'clickCount': 0,
-                  'nicknames': ['zooomm', 'jzzzz']
-              },
-              {
-                  'name': 'Rosita',
-                  'imgSrc': 'images/cat-5.jpg',
-                  'clickCount': 0,
-                  'nicknames': ['trav', 'love']
-              },
-          ];
+    var initialCats = [{
+        'name': 'Kara',
+        'imgSrc': 'images/cat-1.jpg',
+        'clickCount': 0,
+        'nicknames': [
+          'SuperGirl', 'Zor-al', 'amoureux', 'macintosh', 'kay'
+        ]
+      },
+      {
+        'name': 'Anshu ',
+        'imgSrc': 'images/cat-2.jpg',
+        'clickCount': 0,
+        'nicknames': ['gopal', 'super-cute', ':)']
+      },
+      {
+        'name': 'Aria',
+        'imgSrc': 'images/cat-3.jpg',
+        'clickCount': 0,
+        'nicknames': ['jbl', 'melody']
+      },
+      {
+        'name': 'Stevey',
+        'imgSrc': 'images/cat-4.jpg',
+        'clickCount': 0,
+        'nicknames': ['zooomm', 'jzzzz']
+      },
+      {
+        'name': 'Rosita',
+        'imgSrc': 'images/cat-5.jpg',
+        'clickCount': 0,
+        'nicknames': ['trav', 'love']
+      },
+    ];
 
-  var Cat = function(data) {
-    var self = this;
-    self.clickCount = ko.observable(data.clickCount);
-    self.name = ko.observable(data.name);
-    self.imgSrc = ko.observable(data.imgSrc);
-    self.nicknames = ko.observableArray()
+    var Cat = function(data) {
+      var self = this;
+      self.clickCount = ko.observable(data.clickCount);
+      self.name = ko.observable(data.name);
+      self.imgSrc = ko.observable(data.imgSrc);
+      self.nicknames = ko.observableArray()
 
-    // makes nicknames in the original array observables
-    // then add it to observable array of 'Cat'
-    data.nicknames.forEach(function(nickname){
-      // self.nicknames.push({'name': nickname});
-      self.nicknames.push({'nickname' : ko.observable(nickname)});
-    })
+      // makes nicknames in the original array observables
+      // then add it to observable array of 'Cat'
+      data.nicknames.forEach(function(nickname) {
+        // self.nicknames.push({'name': nickname});
+        self.nicknames.push({
+          'nickname': ko.observable(nickname)
+        });
+      })
 
-    //computed observables
-    self.title = ko.computed(function() {
-      var title;
-      var clicks = this.clickCount();
+      //computed observables
+      self.title = ko.computed(function() {
+        var title;
+        var clicks = this.clickCount();
         if (clicks < 10) {
-          title =  'Newborn';
-        } else if (clicks < 50){
+          title = 'Newborn';
+        } else if (clicks < 50) {
           title = 'Infant';
         } else if (clicks < 200) {
           title = 'teen';
@@ -64,126 +65,138 @@ $(function() {
           title = 'adult';
         }
         return title;
-    }, this);
-  }
-
-  var ViewModel = function() {
-
-    var self = this;
-
-    this.catList = ko.observableArray([]);
-
-    initialCats.forEach(function(catItem){
-      self.catList.push( new Cat(catItem) );
-    })
-
-    this.currentCat = ko.observable( this.catList()[0] );
-
-    this.incrementCounter = function() {
-      self.currentCat().clickCount(self.currentCat().clickCount() + 1);
-      // method -2 here we are already in the context of currentCat because of 'with' binding in the html
-      // this.clickCount(this.clickCount() + 1);
+      }, this);
     }
 
-    this.setCat = function() {
-      // foreach binding (in HTML) changes context. 'this' here refers to the cat itself i.e.  Click listner is applied on C`at itelf
-      self.currentCat(this);
-    }
-    // method 2
-    //read documentation to nkow more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
-    // this.setCat = function(currentCat) {
-    //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
-    //   self.currentCat(this);
+    var ViewModel = function() {
 
-    this.removeCat = function() {
-      if(self.catList().length > 1) {
-        // grab the index of cat (which is set as currentCat) from the catList
-        var currentCatIndex = self.catList().indexOf(self.currentCat());
-        // remove the cat from catList
-        self.catList.remove(self.currentCat());
-        // set currentCat to the next available, since we remove one element from the array
-        // index of the next available element become the index of removed one i.e. currentCatIndex
-        self.currentCat(self.catList()[currentCatIndex]);
-      } else {
-        $("#cannot-delete-all-cats-alert").fadeTo(2000, 500).slideUp(500, function(){
-          $("#cannot-delete-all-cats-alert").slideUp(500);
+      var self = this;
+
+      this.catList = ko.observableArray([]);
+
+      initialCats.forEach(function(catItem) {
+        self.catList.push(new Cat(catItem));
+      })
+
+      this.currentCat = ko.observable(this.catList()[0]);
+
+      this.incrementCounter = function() {
+        self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+        // method -2 here we are already in the context of currentCat because of 'with' binding in the html
+        // this.clickCount(this.clickCount() + 1);
+      }
+
+      this.setCat = function() {
+        // foreach binding (in HTML) changes context. 'this' here refers to the cat itself i.e.  Click listner is applied on C`at itelf
+        self.currentCat(this);
+      }
+      // method 2
+      //read documentation to nkow more - when you click on something and it runs a function, it passes in the object you clicked on, specifically the cat model here
+      // this.setCat = function(currentCat) {
+      //   // since we used foreach binding, context changed. 'this' here refers to the cat itself
+      //   self.currentCat(this);
+
+      this.removeCat = function() {
+        if (self.catList().length > 1) {
+          // grab the index of cat (which is set as currentCat) from the catList
+          var currentCatIndex = self.catList().indexOf(self.currentCat());
+
+          if(currentCatIndex === self.catList().length-1) {
+            // remove the cat from catList
+            self.catList.remove(self.currentCat());
+            // set currentCat to currentCatIndex -1 becuase the last cat was removed
+            self.currentCat(self.catList()[currentCatIndex-1]);
+          } else {
+            // remove the cat from catList
+            self.catList.remove(self.currentCat());
+            // set currentCat to currentCatIndex
+            self.currentCat(self.catList()[currentCatIndex]);
+          }
+
+        } else {
+          $("#cannot-delete-all-cats-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#cannot-delete-all-cats-alert").slideUp(500);
+          });
+        }
+
+      }
+
+      //retrive 'add a new cat' form data and creates a new 'Cat'
+      this.addUserCat = function() {
+        // newUserCat object should be similar to initialCats array objects
+        var newUserCat = {};
+        var nameByUser = $('#add-user-cat-form').find('input[name="name"]').val();
+        var clickCountByUser = parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
+        if (!nameByUser) {
+          nameByUser = 'Please name you cat :)';
+        }
+        // console.log(newUserCat.clickCount);
+        if (Number.isNaN(clickCountByUser)) {
+          clickCountByUser = 0;
+        }
+        newUserCat.name = nameByUser;
+        newUserCat.imgSrc = $('#add-user-cat-form').find('input[name="imgSrc"]').val();
+        newUserCat.clickCount = clickCountByUser;
+        newUserCat.nicknames = [];
+        // grab the nicknames from form feild
+        var addCatFormNickNames = $('#user-cat-nicknames').children('input');
+        // iterates over jQuery object which .children() returns and push it to newUserCat
+        // .value is a proertly that jQuery object returns
+        // log 'addCatFormNickNames' to console for details
+        addCatFormNickNames.each(function(index, element) {
+          newUserCat.nicknames.push(element.value);
+        })
+        // pass newUserCat to catList observable array
+        self.catList.push(new Cat(newUserCat));
+        // console.log(newUserCat);
+
+        // set the currentCat to the new cat added
+        self.currentCat(self.catList()[self.catList().length - 1]);
+
+        //close the modal
+        $('#addNewUserCatModal').modal('hide');
+        // display 'new cat added successful' message alert to user
+        $("#user-cat-success-alert").fadeTo(2000, 500).slideUp(500, function() {
+          $("#user-cat-success-alert").slideUp(500);
         });
       }
 
-    }
-
-    //retrive 'add a new cat' form data and creates a new 'Cat'
-    this.addUserCat = function(){
-      // newUserCat object should be similar to initialCats array objects
-      var newUserCat = {};
-      var nameByUser = $('#add-user-cat-form').find('input[name="name"]').val();
-      var clickCountByUser =  parseInt($('#add-user-cat-form').find('input[name="clickCount"]').val())
-      if(!nameByUser) {
-        nameByUser = 'Please name you cat :)';
+      // sort cats in alphabetical order
+      self.sortCats = function() {
+        self.catList.sort(function(l, r) {
+          return l.name() > r.name() ? 1 : -1
+        });
+        // display 'cats sorted successfully' message alert to user
+        $("#cats-sorted-success-alert").fadeTo(2000, 500).slideUp(500, function() {
+          $("#cats-sorted-success-alert").slideUp(500);
+        });
       }
-      // console.log(newUserCat.clickCount);
-      if (Number.isNaN(clickCountByUser)) {
-        clickCountByUser = 0;
+
+      // admin modal - remove nickname
+      self.adminRemoveNickname = function(value) {
+        self.currentCat().nicknames.remove(value);
       }
-      newUserCat.name =  nameByUser;
-      newUserCat.imgSrc =  $('#add-user-cat-form').find('input[name="imgSrc"]').val();
-      newUserCat.clickCount =  clickCountByUser;
-      newUserCat.nicknames =  [];
-      // grab the nicknames from form feild
-      var addCatFormNickNames = $('#user-cat-nicknames').children('input');
-      // iterates over jQuery object which .children() returns and push it to newUserCat
-      // .value is a proertly that jQuery object returns
-      // log 'addCatFormNickNames' to console for details
-      addCatFormNickNames.each(function(index, element){
-        newUserCat.nicknames.push(element.value);
-      })
-      // pass newUserCat to catList observable array
-      self.catList.push( new Cat(newUserCat) );
-      // console.log(newUserCat);
 
-      // set the currentCat to the new cat added
-      self.currentCat(self.catList()[self.catList().length-1]);
+      // admin modal - add new nickname
+      self.adminAddNewNickname = function() {
+        var newNickname = '';
+        self.currentCat().nicknames.push({
+          'nickname': ko.observable(newNickname)
+        });
+      }
 
-      //close the modal
-      $('#addNewUserCatModal').modal('hide');
-      // display 'new cat added successful' message alert to user
-      $("#user-cat-success-alert").fadeTo(2000, 500).slideUp(500, function(){
-        $("#user-cat-success-alert").slideUp(500);
-      });
+      // add cat modal
+      this.addNicknameField = function() {
+        $('<input type="text" id="" name="" data-bind="">').insertBefore("#remove-nickname-btn")
+      }
+      // add cat modal
+      this.removeNicknameField = function() {
+        $('#user-cat-nicknames').find('input').last().remove();
+      }
     }
 
-    // sort cats in alphabetical order
-    self.sortCats = function() {
-      self.catList.sort(function (l, r) {return l.name() > r.name() ? 1 : -1 })
-      // display 'new cat added successful' message alert to user
-      $("#cats-sorted-success-alert").fadeTo(2000, 500).slideUp(500, function(){
-        $("#cats-sorted-success-alert").slideUp(500);
-      });
-    }
+    ko.applyBindings(new ViewModel());
+    // initialize popovers
+    $('[data-toggle="popover"]').popover()
 
-    // admin modal - remove nickname
-    self.adminRemoveNickname = function(value){
-      self.currentCat().nicknames.remove(value);
-    }
-
-    // admin modal - add new nickname
-    self.adminAddNewNickname = function(){
-      var newNickname = '';
-      self.currentCat().nicknames.push({'nickname' : ko.observable(newNickname)});
-    }
-
-    // add cat modal
-    this.addNicknameField = function(){
-      $('<input type="text" id="" name="" data-bind="">').insertBefore("#remove-nickname-btn")
-    }
-    // add cat modal
-    this.removeNicknameField = function(){
-      $('#user-cat-nicknames').find('input').last().remove();
-    }
-  }
-
-  ko.applyBindings(new ViewModel());
-  // initialize popovers
-  $('[data-toggle="popover"]').popover()
-
-});
+  });
